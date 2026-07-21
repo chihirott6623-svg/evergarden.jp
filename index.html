@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVERGARDEN | 手紙預かりサービス - Letters to the Future</title>
+<meta name="description" content="親から子への手紙を預かり、誕生日・成人式・卒業式など人生の節目にお届けする、手紙預かりサービス EVERGARDEN。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Dancing+Script:wght@500;600;700&family=Noto+Sans+JP:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --offwhite:#faf8f4;
+    --paper:#fdfcfa;
+    --ink:#2b2b2b;
+    --ink-soft:#5a5a56;
+    --navy:#4a3163;
+    --navy-deep:#2a1b38;
+    --navy-soft:#7d6291;
+    --gold:#b8935a;
+    --gold-light:#d9bd8c;
+    --gold-pale:#f3e9d8;
+    --border:#e7e0e6;
+    --shadow: 0 20px 60px rgba(42,27,56,0.1);
+    --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --display: 'Cormorant Garamond', 'Noto Serif JP', serif;
+    --hand: 'Dancing Script', 'Cormorant Garamond', cursive;
+    --sans: 'Noto Sans JP', 'Roboto', sans-serif;
+
+    /* spacing scale */
+    --space-feature:140px;
+    --space-section:130px;
+    --space-compact:100px;
+    --space-mobile:88px;
+
+    /* heading scale */
+    --fs-h1:clamp(38px,7vw,72px);
+    --fs-h2:clamp(30px,6vw,54px);
+    --fs-h3:clamp(24px,4vw,34px);
+    --fs-h4:18px;
+
+    /* motion scale */
+    --ease-hover:.35s ease;
+    --ease-reveal:.9s ease;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family: var(--serif);
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img,svg{ display:block; max-width:100%; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .container{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  section{ position:relative; }
+
+  /* ---------- reveal animation ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity var(--ease-reveal), transform var(--ease-reveal);
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin:0 auto 28px;
+  }
+  .divider::before,
+  .divider::after{
+    content:"";
+    width:36px;
+    height:1px;
+    background:var(--gold);
+  }
+  .divider span{
+    font-family:var(--display);
+    color:var(--gold);
+    font-size:13px;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+  }
+
+  .eyebrow{
+    display:block;
+    text-align:center;
+    font-family:var(--display);
+    color:var(--navy-soft);
+    letter-spacing:0.3em;
+    font-size:13px;
+    margin-bottom:10px;
+  }
+
+  .section-title{
+    text-align:center;
+    font-size:var(--fs-h3);
+    font-weight:600;
+    letter-spacing:0.06em;
+    color:var(--navy-deep);
+    margin-bottom:8px;
+  }
+
+  .section-lead{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:15px;
+    max-width:520px;
+    margin:0 auto 56px;
+    line-height:2;
+  }
+
+  /* ================= HEADER ================= */
+  .topbar{
+    position:absolute;
+    top:0; left:0; right:0;
+    z-index:10;
+    padding:28px 0;
+  }
+  .topbar .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    font-family:var(--display);
+    font-size:20px;
+    letter-spacing:0.28em;
+    color:var(--navy-deep);
+  }
+  .brand small{
+    display:block;
+    font-size:9px;
+    letter-spacing:0.3em;
+    font-weight:300;
+    color:var(--navy-soft);
+    margin-top:4px;
+  }
+
+  /* ================= HERO (minimal / no photo) ================= */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(ellipse 60% 46% at 10% -8%, rgba(90,58,120,0.12), transparent 70%),
+      radial-gradient(ellipse 55% 50% at 92% 106%, rgba(184,147,90,0.11), transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 42%, rgba(255,255,255,0.9), transparent 100%),
+      var(--white);
+    color:var(--navy-deep);
+    padding:var(--space-feature) 24px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:0.05;
+    mix-blend-mode:multiply;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:2; max-width:720px; }
+  .hero-feather{
+    position:absolute;
+    right:-30px;
+    bottom:-40px;
+    width:220px;
+    height:auto;
+    opacity:0.16;
+    z-index:1;
+    pointer-events:none;
+    transform:rotate(8deg);
+  }
+  .hero-feather path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.1;
+    vector-effect:non-scaling-stroke;
+  }
+  @media (max-width:860px){
+    .hero-feather{ width:140px; right:-18px; bottom:-24px; opacity:0.13; }
+  }
+  @media (max-width:560px){
+    .hero-feather{ display:none; }
+  }
+  .hero-ornament{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin-bottom:32px;
+  }
+  .hero-ornament::before,
+  .hero-ornament::after{
+    content:"";
+    width:64px;
+    height:1px;
+  }
+  .hero-ornament::before{ background:linear-gradient(90deg, transparent, var(--gold)); }
+  .hero-ornament::after{ background:linear-gradient(90deg, var(--gold), transparent); }
+  .hero-ornament .diamond{
+    width:7px; height:7px;
+    background:var(--gold);
+    transform:rotate(45deg);
+    flex-shrink:0;
+  }
+  .hero-eyebrow{
+    font-family:var(--display);
+    letter-spacing:0.4em;
+    font-size:13px;
+    color:var(--gold);
+    margin-bottom:28px;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(27px,8.5vw,72px);
+    font-weight:700;
+    letter-spacing:0.02em;
+    line-height:1.6;
+    color:var(--navy-deep);
+    margin-bottom:30px;
+    white-space:nowrap;
+  }
+  .hero p.sub{
+    font-size:clamp(14px,2vw,17px);
+    font-weight:400;
+    letter-spacing:0.06em;
+    color:var(--ink-soft);
+    margin-bottom:46px;
+  }
+  .hero-scroll{
+    margin-top:60px;
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    font-family:var(--display);
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--navy-soft);
+  }
+  .hero-scroll .line{
+    width:1px; height:44px;
+    background:linear-gradient(var(--gold), transparent);
+    animation:scrollLine 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollLine{
+    0%{ transform:scaleY(0.2); transform-origin:top; opacity:0.4; }
+    50%{ transform:scaleY(1); transform-origin:top; opacity:1; }
+    100%{ transform:scaleY(0.2); transform-origin:bottom; opacity:0.4; }
+  }
+
+  /* -- hero entrance -- */
+  @keyframes heroFadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .hero-ornament,
+  .hero-eyebrow,
+  .hero h1,
+  .hero p.sub,
+  .hero .btn-group,
+  .hero-scroll{
+    animation:heroFadeUp .9s ease both;
+  }
+  .hero-ornament{ animation-delay:.05s; }
+  .hero-eyebrow{ animation-delay:.16s; }
+  .hero h1{ animation-delay:.28s; }
+  .hero p.sub{ animation-delay:.42s; }
+  .hero .btn-group{ animation-delay:.56s; }
+  .hero-scroll{ animation-delay:.75s; }
+  @media (prefers-reduced-motion: reduce){
+    .hero-ornament,.hero-eyebrow,.hero h1,.hero p.sub,.hero .btn-group,.hero-scroll{
+      animation:none; opacity:1;
+    }
+  }
+
+  .btn-group{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px 24px;
+    margin-top:44px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:58px;
+    padding:18px 54px;
+    font-family:var(--serif);
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:0.2em;
+    border-radius:3px;
+    transition:transform var(--ease-hover), box-shadow var(--ease-hover);
+    position:relative;
+    isolation:isolate;
+  }
+  .btn::before{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:inherit;
+    z-index:-1;
+    opacity:0;
+    filter:blur(14px);
+    transition:opacity var(--ease-hover);
+  }
+  .btn-gold{
+    background:linear-gradient(135deg, var(--gold-light), var(--gold));
+    color:var(--navy-deep);
+    border:1.5px solid var(--navy-deep);
+    box-shadow:0 16px 36px rgba(184,147,90,0.4);
+  }
+  .btn-gold::before{
+    background:radial-gradient(circle, rgba(217,189,140,0.65), transparent 70%);
+  }
+  .btn-gold:hover{
+    transform:translateY(-3px);
+    box-shadow:0 22px 48px rgba(184,147,90,0.5);
+  }
+  .btn-gold:hover::before{ opacity:1; }
+  .btn-outline{
+    border:1.5px solid rgba(255,255,255,0.55);
+    color:var(--white);
+    background:rgba(255,255,255,0.04);
+  }
+  .btn-outline::before{
+    background:radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+  }
+  .btn-outline:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.12);
+    border-color:var(--gold-light);
+  }
+  .btn-outline:hover::before{ opacity:1; }
+  .btn-navy{
+    border:1.5px solid var(--navy-deep);
+    color:var(--navy-deep);
+    background:rgba(74,49,99,0.03);
+  }
+  .btn-navy::before{
+    background:radial-gradient(circle, rgba(74,49,99,0.22), transparent 70%);
+  }
+  .btn-navy:hover{
+    transform:translateY(-3px);
+    background:rgba(74,49,99,0.08);
+    border-color:var(--gold);
+    color:var(--navy-deep);
+  }
+  .btn-navy:hover::before{ opacity:1; }
+
+  /* ================= LETTER SAMPLE ================= */
+  .letter-section{
+    background:var(--offwhite);
+    padding:var(--space-section) 0;
+  }
+  .letter-stage{
+    display:flex;
+    justify-content:center;
+    margin-bottom:10px;
+    padding-top:56px;
+    perspective:1400px;
+    position:relative;
+  }
+  .letter-stage::after{
+    content:"";
+    position:absolute;
+    bottom:2px; left:50%;
+    transform:translateX(-50%);
+    width:62%; height:34px;
+    background:radial-gradient(ellipse, rgba(42,27,56,0.3), transparent 72%);
+    filter:blur(7px);
+    z-index:0;
+  }
+  .stage-inner{
+    position:relative;
+    width:min(92vw,480px);
+  }
+  .letter-peek{
+    position:absolute;
+    top:-46px; left:6%; right:10%;
+    height:64%;
+    background:
+      repeating-linear-gradient(rgba(74,49,99,0.045) 0 1px, transparent 1px 32px),
+      linear-gradient(170deg,#fffefb,#f5efe1);
+    border:1px solid var(--border);
+    border-radius:3px;
+    box-shadow:0 22px 38px rgba(74,49,99,0.14);
+    transform:rotate(-2deg);
+    padding:24px 28px;
+    z-index:1;
+  }
+  .letter-peek .greeting{
+    font-family:var(--hand);
+    font-weight:600;
+    font-size:clamp(24px,4vw,30px);
+    color:var(--navy-deep);
+  }
+  .letter-peek .body-lines{
+    margin-top:10px;
+    font-family:var(--display);
+    font-style:italic;
+    font-size:13.5px;
+    line-height:1.9;
+    color:var(--ink-soft);
+  }
+  .envelope{
+    width:100%;
+    aspect-ratio:16/10.2;
+    position:relative;
+    z-index:2;
+    filter:drop-shadow(0 34px 46px rgba(74,49,99,0.24));
+  }
+  .envelope .body{
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(100deg, rgba(74,49,99,0.02) 0 2px, transparent 2px 6px),
+      linear-gradient(160deg, #ffffff, #f4f0e8);
+    border:1px solid var(--border);
+    border-radius:4px;
+  }
+  .envelope .flap{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:58%;
+    background:linear-gradient(155deg, #fbf9f4, #ece5d6);
+    clip-path:polygon(0 0, 100% 0, 50% 78%);
+    border-radius:4px 4px 0 0;
+  }
+  .envelope .flap::after{
+    content:"";
+    position:absolute; inset:0;
+    clip-path:polygon(0 0, 100% 0, 50% 78%);
+    box-shadow:inset 0 -1px 0 rgba(74,49,99,0.08);
+  }
+  .seal{
+    position:absolute;
+    top:46%; left:50%;
+    transform:translate(-50%,-50%);
+    width:64px; height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold) 60%, #96703a 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 20px rgba(184,147,90,0.5), inset 0 2px 4px rgba(255,255,255,0.45), inset 0 -6px 10px rgba(120,84,32,0.35);
+    z-index:3;
+  }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .seal span{
+    font-family:var(--display);
+    font-size:26px;
+    color:var(--navy-deep);
+    font-style:italic;
+    position:relative;
+  }
+  .envelope .addr{
+    position:absolute;
+    bottom:22px; left:32px;
+    font-family:var(--display);
+    font-size:13px;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .qr-tag{
+    position:absolute;
+    bottom:16px; right:16px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    box-shadow:0 10px 24px rgba(74,49,99,0.14);
+    z-index:3;
+  }
+  .qr-tag .qr-label{
+    font-size:9px;
+    letter-spacing:0.05em;
+    color:var(--navy-soft);
+    white-space:nowrap;
+  }
+  .qr-grid{
+    width:52px; height:52px;
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+    grid-template-rows:repeat(9,1fr);
+    background:#fff;
+  }
+  .qr-grid i{ background:transparent; }
+  .qr-grid i.on{ background:var(--navy-deep); }
+
+  .letter-caption{
+    text-align:center;
+    max-width:560px;
+    margin:56px auto 0;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    letter-spacing:0.04em;
+  }
+  .letter-caption strong{
+    display:block;
+    color:var(--navy-deep);
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:14px;
+    letter-spacing:0.06em;
+  }
+
+  /* ================= FLOW ================= */
+  .flow{
+    background:var(--offwhite);
+    padding:var(--space-section) 0;
+  }
+  .flow-list{
+    max-width:820px;
+    margin:0 auto;
+  }
+  .flow-item{
+    display:grid;
+    grid-template-columns:90px 88px 1fr;
+    gap:28px;
+    padding:36px 0;
+    border-bottom:1px solid var(--border);
+    align-items:center;
+  }
+  .flow-item:last-child{ border-bottom:none; }
+  .flow-num{
+    font-family:var(--display);
+    font-size:52px;
+    font-weight:300;
+    color:var(--gold);
+    line-height:1;
+  }
+  .flow-num sub{
+    font-size:12px;
+    letter-spacing:0.25em;
+    color:var(--navy-soft);
+    display:block;
+    font-family:var(--serif);
+    margin-top:10px;
+  }
+  .flow-thumb{
+    width:88px;
+    height:88px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:var(--offwhite);
+    border:1.5px solid var(--gold-pale);
+    box-shadow:0 12px 26px rgba(74,49,99,0.12);
+  }
+  .flow-thumb svg{
+    width:38px;
+    height:38px;
+    fill:none;
+    stroke:var(--navy-deep);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .flow-body h3{
+    font-size:var(--fs-h4);
+    font-weight:600;
+    color:var(--navy-deep);
+    letter-spacing:0.04em;
+    margin-bottom:10px;
+  }
+  .flow-body p{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    letter-spacing:0.02em;
+    line-height:1.95;
+  }
+
+  /* ================= PRICING ================= */
+  .pricing{
+    padding:var(--space-section) 0;
+    background:var(--white);
+    position:relative;
+    overflow:hidden;
+  }
+  .pricing::before{
+    content:"";
+    position:absolute; inset:0;
+    background:url('https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;
+    opacity:0.07;
+    z-index:0;
+  }
+  .pricing::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, var(--white), transparent 20%, transparent 80%, var(--white));
+    z-index:0;
+  }
+  .pricing .container{ position:relative; z-index:1; }
+  .plan-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    max-width:980px;
+    margin:0 auto;
+    align-items:stretch;
+  }
+  .plan-card{
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:46px 30px 38px;
+    text-align:center;
+    background:var(--paper);
+    transition:transform var(--ease-hover), box-shadow var(--ease-hover);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .plan-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+  }
+  .plan-card.featured{
+    background:linear-gradient(165deg, var(--navy-deep), var(--navy));
+    color:var(--white);
+    border-color:var(--navy-deep);
+  }
+  .plan-badge{
+    position:absolute;
+    top:-13px; left:50%;
+    transform:translateX(-50%);
+    background:var(--gold);
+    color:var(--navy-deep);
+    font-family:var(--display);
+    font-size:11px;
+    letter-spacing:0.15em;
+    padding:5px 18px;
+    border-radius:20px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .plan-label{
+    font-size:14.5px;
+    font-weight:600;
+    letter-spacing:0.1em;
+    color:var(--navy-soft);
+    margin-bottom:18px;
+  }
+  .plan-card.featured .plan-label{ color:var(--gold-light); }
+  .plan-amount{
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:2px;
+    font-family:var(--sans);
+    font-size:clamp(46px,6.5vw,60px);
+    font-weight:800;
+    color:var(--navy-deep);
+    letter-spacing:0.01em;
+    margin-bottom:10px;
+    line-height:1;
+  }
+  .plan-card.featured .plan-amount{ color:var(--white); }
+  .plan-amount .yen{
+    font-family:var(--sans);
+    font-size:0.34em;
+    font-weight:700;
+    margin-bottom:0.08em;
+  }
+  .plan-caption{
+    font-family:var(--serif);
+    font-size:10.5px;
+    color:var(--ink-soft);
+    opacity:0.68;
+    letter-spacing:0.03em;
+    margin-bottom:22px;
+  }
+  .plan-card.featured .plan-caption{ color:rgba(255,255,255,0.68); opacity:1; }
+  .plan-desc{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    margin-bottom:26px;
+    line-height:1.8;
+  }
+  .plan-card.featured .plan-desc{ color:rgba(255,255,255,0.82); }
+  .plan-features{
+    list-style:none;
+    text-align:left;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:2.1;
+    letter-spacing:0.02em;
+    margin-top:auto;
+    padding-top:22px;
+    border-top:1px solid var(--border);
+  }
+  .plan-card.featured .plan-features{
+    color:rgba(255,255,255,0.85);
+    border-top-color:rgba(255,255,255,0.2);
+  }
+  .plan-features li{ position:relative; padding-left:20px; }
+  .plan-features li::before{
+    content:"―";
+    position:absolute; left:0;
+    color:var(--gold);
+  }
+  .plan-card.featured .plan-features li::before{ color:var(--gold-light); }
+
+  .plan-options{
+    max-width:640px;
+    margin:40px auto 0;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px 44px;
+    text-align:center;
+  }
+  .option-line{
+    display:inline-flex;
+    align-items:baseline;
+    gap:10px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+  }
+  .option-figure{
+    display:inline-flex;
+    align-items:flex-end;
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:23px;
+    color:var(--navy-deep);
+    line-height:1;
+  }
+  .option-figure .yen{
+    font-family:var(--sans);
+    font-size:0.34em;
+    font-weight:700;
+    margin:0 0 0.05em 1px;
+  }
+  .option-unit{
+    font-family:var(--serif);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-left:-6px;
+  }
+
+  .price-note{
+    max-width:640px;
+    margin:44px auto 0;
+    text-align:center;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    line-height:2;
+  }
+
+  /* ================= USE CASES ================= */
+  .usecase{
+    background:var(--offwhite);
+    padding:var(--space-section) 0;
+  }
+  .usecase-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    max-width:980px;
+    margin:0 auto;
+  }
+  .usecase-card{
+    background:var(--white);
+    border-top:3px solid var(--navy);
+    border-radius:6px;
+    padding:40px 28px;
+    text-align:center;
+    box-shadow:0 14px 34px rgba(74,49,99,0.06);
+    transition:transform var(--ease-hover), box-shadow var(--ease-hover);
+  }
+  .usecase-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow);
+  }
+  .usecase-num{
+    font-family:var(--display);
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .usecase-card h3{
+    font-size:var(--fs-h4);
+    font-weight:600;
+    color:var(--navy-deep);
+    letter-spacing:0.03em;
+    margin-bottom:20px;
+  }
+  .usecase-calc{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:2.1;
+    letter-spacing:0.01em;
+    padding-bottom:20px;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--border);
+  }
+  .usecase-figure{
+    font-family:var(--sans);
+    font-weight:800;
+    color:var(--navy-deep);
+    font-size:1.3em;
+    letter-spacing:0;
+  }
+  .calc-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-width:210px;
+    margin:0 auto;
+    text-align:left;
+  }
+  .calc-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .calc-row .usecase-figure{ font-size:15px; white-space:nowrap; }
+  .calc-total-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-top:8px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+  }
+  .calc-total-row .label{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:13px;
+    color:var(--navy-deep);
+    letter-spacing:0.05em;
+  }
+  .calc-total-row .usecase-figure{ font-size:22px; }
+  .usecase-quote{
+    font-family:var(--display);
+    font-style:italic;
+    font-size:14.5px;
+    color:var(--navy-soft);
+  }
+
+  /* ================= ASSURANCE ================= */
+  .assurance{
+    background:var(--white);
+    padding:var(--space-compact) 24px;
+  }
+  .assurance-box{
+    max-width:700px;
+    margin:0 auto;
+    border:1px solid var(--navy-soft);
+    border-radius:6px;
+    padding:46px 44px;
+    background:var(--paper);
+  }
+  .assurance-box h2{
+    text-align:center;
+    font-size:var(--fs-h4);
+    font-weight:600;
+    letter-spacing:0.08em;
+    color:var(--navy-deep);
+    margin-bottom:26px;
+  }
+  .assurance-box p{
+    font-size:13px;
+    color:var(--ink-soft);
+    line-height:2.15;
+    letter-spacing:0.02em;
+    margin-bottom:16px;
+  }
+  .assurance-box p:last-child{ margin-bottom:0; }
+
+  /* ================= FAQ ================= */
+  .faq{
+    background:var(--offwhite);
+    padding:var(--space-section) 0;
+  }
+  .faq-list{
+    max-width:740px;
+    margin:0 auto;
+  }
+  .faq-item{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:6px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:24px 30px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    font-weight:600;
+    color:var(--navy-deep);
+    font-size:15.5px;
+    letter-spacing:0.02em;
+    position:relative;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-q{
+    font-family:var(--display);
+    color:var(--gold);
+    font-size:20px;
+    font-weight:600;
+    flex-shrink:0;
+  }
+  .faq-item summary::after{
+    content:"+";
+    margin-left:auto;
+    font-family:var(--display);
+    font-size:22px;
+    color:var(--navy-soft);
+    transition:transform var(--ease-hover);
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-a{
+    padding:0 30px 26px 70px;
+    color:var(--ink-soft);
+    font-size:14px;
+    line-height:1.95;
+    letter-spacing:0.02em;
+  }
+
+  /* ================= CTA ================= */
+  .cta{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(184,147,90,0.25), transparent 60%),
+      linear-gradient(160deg, var(--navy-deep), var(--navy));
+    color:var(--white);
+    text-align:center;
+    padding:var(--space-feature) 24px;
+  }
+  .cta-eyebrow{
+    font-family:var(--display);
+    font-style:italic;
+    color:var(--gold-light);
+    font-size:16px;
+    letter-spacing:0.1em;
+    margin-bottom:24px;
+  }
+  .cta h2{
+    font-size:clamp(26px,5vw,42px);
+    font-weight:600;
+    letter-spacing:0.06em;
+    line-height:1.8;
+    margin-bottom:44px;
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    background:var(--navy-deep);
+    color:rgba(255,255,255,0.8);
+    padding:80px 24px 40px;
+    text-align:center;
+  }
+  .footer-brand{
+    font-family:var(--display);
+    font-size:22px;
+    letter-spacing:0.3em;
+    color:var(--white);
+    margin-bottom:8px;
+  }
+  .footer-en{
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--gold-light);
+    margin-bottom:40px;
+  }
+  .footer-vision{
+    max-width:600px;
+    margin:0 auto 40px;
+    font-size:15px;
+    line-height:2.1;
+    letter-spacing:0.03em;
+    color:rgba(255,255,255,0.88);
+  }
+  .footer-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    font-size:12.5px;
+    letter-spacing:0.05em;
+    color:rgba(255,255,255,0.6);
+    margin-bottom:34px;
+  }
+  .footer-links a:hover{ color:var(--gold-light); }
+  .footer-copy{
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:rgba(255,255,255,0.35);
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width:860px){
+    .plan-grid,.usecase-grid{ grid-template-columns:1fr; max-width:440px; }
+    .plan-card.featured{ order:-1; }
+  }
+
+  @media (max-width:640px){
+    /* -- section rhythm -- */
+    .letter-section,.flow,.pricing,.usecase,.assurance,.faq{
+      padding-top:var(--space-mobile);
+      padding-bottom:var(--space-mobile);
+    }
+    .hero,.cta{ padding-top:112px; padding-bottom:80px; }
+    footer{ padding-top:64px; }
+
+    /* -- minimum 16px body copy on mobile -- */
+    body{ font-size:16px; }
+    .section-lead,
+    .flow-body p,
+    .plan-desc,
+    .plan-features,
+    .plan-options,
+    .usecase-calc,
+    .assurance-box p,
+    .faq-a,
+    .faq-item summary,
+    .letter-caption,
+    .letter-peek .body-lines,
+    .price-note{
+      font-size:16px;
+      line-height:1.85;
+    }
+
+    /* -- hero -- */
+    .hero-eyebrow{ font-size:12px; }
+    .btn-group{ width:100%; flex-direction:column; gap:16px; }
+    .btn{ width:100%; max-width:340px; }
+
+    /* -- letter sample -- */
+    .letter-stage{ padding-top:48px; }
+    .letter-peek{ top:-34px; padding:18px 20px; }
+    .letter-peek .greeting{ font-size:24px; }
+
+    /* -- flow: full vertical stack per step -- */
+    .flow-item{
+      grid-template-columns:1fr;
+      justify-items:center;
+      text-align:center;
+      gap:14px;
+      padding:32px 0;
+    }
+    .flow-thumb{ width:76px; height:76px; }
+    .flow-thumb svg{ width:32px; height:32px; }
+    .flow-num{ font-size:38px; }
+
+    /* -- faq tap targets -- */
+    .faq-item summary{ padding:20px 22px; gap:16px; }
+    .faq-a{ padding:0 22px 24px 56px; }
+
+    /* -- assurance -- */
+    .assurance-box{ padding:32px 22px; }
+
+    /* -- footer tap targets -- */
+    .footer-links a{ display:inline-block; padding:8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">EVERGARDEN<small>LETTERS TO THE FUTURE</small></div>
+    </div>
+  </div>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero">
+    <svg class="hero-feather" viewBox="0 0 160 400" aria-hidden="true">
+      <path d="M80 6 C42 60 26 140 31 222 C34 282 46 342 70 394"/>
+      <path d="M80 6 C118 60 134 140 129 222 C126 282 114 342 90 394"/>
+      <path d="M80 6 C78 140 78 260 80 394"/>
+      <path d="M80 46 L52 62"/>
+      <path d="M80 84 L46 104"/>
+      <path d="M80 122 L114 146"/>
+      <path d="M80 160 L42 186"/>
+      <path d="M80 198 L118 224"/>
+      <path d="M80 236 L46 262"/>
+      <path d="M80 274 L112 300"/>
+      <path d="M80 312 L52 336"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="hero-ornament" aria-hidden="true"><span class="diamond"></span></div>
+      <div class="hero-eyebrow">Letters to the Future</div>
+      <h1>こんなに愛されてた。</h1>
+      <p class="sub">親から子へ、想いをそのままの形で届ける。<br>手紙預かりサービス EVERGARDEN。</p>
+      <div class="btn-group">
+        <a href="#apply" class="btn btn-gold">今すぐ申し込む</a>
+        <a href="#flow" class="btn btn-navy">サービスの流れを見る</a>
+      </div>
+      <div class="hero-scroll"><span class="line"></span>SCROLL</div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 手紙の見本 ============ -->
+  <section class="letter-section">
+    <div class="container">
+      <span class="eyebrow">Sample</span>
+      <h2 class="section-title reveal">手紙の見本</h2>
+      <p class="section-lead reveal">上質な封筒に、想いを封をする。QRコードから、声や表情までそのままに。</p>
+
+      <div class="letter-stage reveal">
+        <div class="stage-inner">
+          <div class="letter-peek" aria-hidden="true">
+            <p class="greeting">陽菜へ</p>
+            <p class="body-lines">大きくなったね。<br>今日という日を、心からお祝いします。</p>
+          </div>
+          <div class="envelope">
+          <div class="body"></div>
+          <div class="flap"></div>
+          <div class="seal"><span>E</span></div>
+          <div class="addr">◯◯ ◯◯ 様<br>成人の日に、お届け。</div>
+          <div class="qr-tag">
+            <div class="qr-grid" aria-hidden="true">
+              <!-- finder patterns + decorative pattern -->
+              <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+              <i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i>
+              <i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i>
+              <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i></i>
+              <i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i class="on"></i>
+              <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i>
+              <i class="on"></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i>
+              <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i>
+            </div>
+            <div class="qr-label">動画メッセージ</div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="letter-caption reveal">
+        <strong>手紙 ＋ QRコードで、動画メッセージも。</strong>
+        文字だけでは伝えきれない声や表情も、専用QRコードを読み込むだけで再生できます。時間が経っても色褪せない、もうひとつの想いの届け方です。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. サービスの流れ ============ -->
+  <section class="flow" id="flow">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title reveal">サービスの流れ</h2>
+      <p class="section-lead reveal">お申し込みから、お届けまで。4つのシンプルなステップです。</p>
+
+      <div class="flow-list">
+        <div class="flow-item reveal">
+          <div class="flow-num">01<sub>ENTRY</sub></div>
+          <div class="flow-thumb">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect x="10" y="6" width="24" height="34" rx="2"/>
+              <line x1="15" y1="15" x2="29" y2="15"/>
+              <line x1="15" y1="21" x2="29" y2="21"/>
+              <line x1="15" y1="27" x2="23" y2="27"/>
+              <circle cx="32" cy="34" r="7.5"/>
+              <path d="M28.5 34 L31 36.5 L36 30.5"/>
+            </svg>
+          </div>
+          <div class="flow-body">
+            <h3>お申し込み・ご登録</h3>
+            <p>Web またはLINEから登録。お届け希望日（誕生日・成人式・卒業式など）と、送り先の住所を設定します。</p>
+          </div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="flow-num">02<sub>WRITE</sub></div>
+          <div class="flow-thumb">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M11 37 L30 15 C33 11.5 37.5 11.5 40 15 C42.5 18 42 22 38.5 25 L19.5 47"/>
+              <path d="M14 33 L23 42"/>
+              <line x1="7" y1="41" x2="18" y2="41"/>
+            </svg>
+          </div>
+          <div class="flow-body">
+            <h3>お手紙を書く</h3>
+            <p>専用の便箋・封筒をお届けします。今の想いを、あなたの言葉で綴ってください。動画メッセージを残したい場合は、QRコードの発行も承ります。</p>
+          </div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="flow-num">03<sub>KEEP</sub></div>
+          <div class="flow-thumb">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M16 14 L16 9.5 C16 6 19.5 3.5 24 3.5 C28.5 3.5 32 6 32 9.5 L32 14"/>
+              <rect x="8" y="14" width="32" height="26" rx="3"/>
+              <circle cx="24" cy="26" r="6"/>
+              <line x1="24" y1="20.5" x2="24" y2="23"/>
+            </svg>
+          </div>
+          <div class="flow-body">
+            <h3>大切に保管</h3>
+            <p>お預かりした手紙は、最長20年間、専用施設にて厳重に保管。保管証明書を発行し、LINEからいつでも保管状況をご確認いただけます。</p>
+          </div>
+        </div>
+        <div class="flow-item reveal">
+          <div class="flow-num">04<sub>DELIVER</sub></div>
+          <div class="flow-thumb">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M6 25 L42 7 L29 42 L23 26 L6 25 Z"/>
+              <line x1="23" y1="26" x2="42" y2="7"/>
+            </svg>
+          </div>
+          <div class="flow-body">
+            <h3>人生の節目にお届け</h3>
+            <p>指定の日に、簡易書留にて確実に郵送。ご住所が変わった場合も、LINEから簡単にお手続きいただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 料金 ============ -->
+  <section class="pricing">
+    <div class="container">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="section-title reveal">料金</h2>
+      <p class="section-lead reveal">わかりやすく、シンプルな料金体系です。</p>
+
+      <div class="plan-grid">
+        <div class="plan-card reveal">
+          <div class="plan-label">手紙プラン</div>
+          <div class="plan-amount">3,980<span class="yen">円</span></div>
+          <div class="plan-caption">税込・簡易書留郵送料込み</div>
+          <div class="plan-desc">お手紙を預けて、指定日にお届け</div>
+          <ul class="plan-features">
+            <li>手紙1通のお預かり</li>
+            <li>保管証明書の発行</li>
+            <li>簡易書留での郵送</li>
+          </ul>
+        </div>
+
+        <div class="plan-card featured reveal">
+          <div class="plan-badge">おすすめ</div>
+          <div class="plan-label">動画つきプラン</div>
+          <div class="plan-amount">4,960<span class="yen">円</span></div>
+          <div class="plan-caption">税込・簡易書留郵送料込み</div>
+          <div class="plan-desc">手紙プランに動画メッセージをプラス</div>
+          <ul class="plan-features">
+            <li>手紙プランのすべて</li>
+            <li>QRコード動画メッセージ1本</li>
+          </ul>
+        </div>
+
+        <div class="plan-card reveal">
+          <div class="plan-label">プレミアムプラン</div>
+          <div class="plan-amount">8,980<span class="yen">円</span></div>
+          <div class="plan-caption">税込・簡易書留郵送料込み</div>
+          <div class="plan-desc">特別な想いを、特別な形で</div>
+          <ul class="plan-features">
+            <li>動画つきプランのすべて</li>
+            <li>和紙便箋</li>
+            <li>封蝋</li>
+            <li>桐箱風の特別な保管証明書</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plan-options reveal">
+        <span class="option-line">お手紙をもう1通追加 <span class="option-figure">1,200<span class="yen">円</span></span></span>
+        <span class="option-line">保管・お届け保証料 <span class="option-figure">500<span class="yen">円</span></span><span class="option-unit">／年</span></span>
+      </div>
+
+      <p class="price-note reveal">※ 表示価格はすべて税込です。保管期間は最長20年、お届け日はご登録時にご指定いただけます。住所変更・保管状況の確認はLINEにて随時承ります。</p>
+    </div>
+  </section>
+
+  <!-- ============ 4.5 ご利用例 ============ -->
+  <section class="usecase">
+    <div class="container">
+      <span class="eyebrow">Examples</span>
+      <h2 class="section-title reveal">ご利用例</h2>
+      <p class="section-lead reveal">お客様それぞれの想いに合わせて、自由に組み合わせいただけます。</p>
+
+      <div class="usecase-grid">
+        <div class="usecase-card reveal">
+          <div class="usecase-num">例 1</div>
+          <h3>はじめての1通</h3>
+          <div class="usecase-calc">手紙プラン <span class="usecase-figure">¥3,980</span></div>
+          <p class="usecase-quote">「まずは1通、預けてみる」</p>
+        </div>
+
+        <div class="usecase-card reveal">
+          <div class="usecase-num">例 2</div>
+          <h3>人生の節目に3通、動画つき</h3>
+          <div class="usecase-calc">
+            <div class="calc-list">
+              <div class="calc-row"><span>手紙プラン</span><span class="usecase-figure">¥3,980</span></div>
+              <div class="calc-row"><span>追加2通(¥1,200×2)</span><span class="usecase-figure">¥2,400</span></div>
+              <div class="calc-row"><span>動画3本(¥980×3)</span><span class="usecase-figure">¥2,940</span></div>
+              <div class="calc-total-row"><span class="label">合計</span><span class="usecase-figure">¥9,320</span></div>
+            </div>
+          </div>
+          <p class="usecase-quote">「10歳の誕生日・卒業式・成人式に、動画と一緒に」</p>
+        </div>
+
+        <div class="usecase-card reveal">
+          <div class="usecase-num">例 3</div>
+          <h3>プレミアムで特別な1通</h3>
+          <div class="usecase-calc">プレミアムプラン <span class="usecase-figure">¥8,980</span></div>
+          <p class="usecase-quote">「特別な想いを、最高の形で」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. よくある質問 ============ -->
+  <section class="faq">
+    <div class="container">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="section-title reveal">よくある質問</h2>
+      <p class="section-lead reveal">ご不明な点は、お気軽にお問い合わせください。</p>
+
+      <div class="faq-list">
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>手紙はどのくらいの期間保管してもらえますか？</summary>
+          <div class="faq-a">最長20年間、専用の保管施設にて大切にお預かりいたします。保管状況はLINEからいつでもご確認いただけます。</div>
+        </details>
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>お届け先の住所が変わった場合はどうすればいいですか？</summary>
+          <div class="faq-a">LINEから簡単に住所変更のお手続きが可能です。お引っ越しの多いお子様の将来にも、安心してご対応いただけます。</div>
+        </details>
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>動画メッセージも一緒に届けられますか？</summary>
+          <div class="faq-a">はい。お手紙にQRコードを添付し、動画メッセージを同時にお届けすることができます。文字だけでは伝えきれない声や表情も残せます。</div>
+        </details>
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>手紙が届くタイミングは選べますか？</summary>
+          <div class="faq-a">誕生日、成人式、卒業式など、ご希望の人生の節目に合わせてお届け日をご指定いただけます。複数のタイミングに分けてお届けすることも可能です。</div>
+        </details>
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>保管期間中に契約者が亡くなった場合はどうなりますか？</summary>
+          <div class="faq-a">あらかじめご指定いただいたご家族の方に、その後のお手続きを引き継いでいただけます。ご契約者様に万一のことがあった場合でも、お預かりした手紙とお約束したお届けは、私たちが責任を持って守り続けます。</div>
+        </details>
+        <details class="faq-item reveal">
+          <summary><span class="faq-q">Q</span>途中でサービスをやめたくなったら？</summary>
+          <div class="faq-a">いつでも解約のご相談を承ります。お預かり中の手紙は、ご返却するか、破棄をご希望の場合は責任を持って対応いたします。大切な想いをお預かりしているからこそ、最後まで誠実にご案内いたします。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 確実にお届けするために ============ -->
+  <section class="assurance">
+    <div class="container">
+      <div class="assurance-box reveal">
+        <h2>確実にお届けするために</h2>
+        <p>お手紙は簡易書留でお届けし、配達記録を管理いたします。</p>
+        <p>万一、宛先不明などでお届けできない場合は、ご登録のLINE・メールにご連絡のうえ、新しいご住所への再送を手配いたします。</p>
+        <p>天災・郵便制度の変更など、やむを得ない事情が生じた場合も、必ずお客様にご連絡し、最善の方法でお届けする責任を果たします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 申し込みCTA ============ -->
+  <section class="cta" id="apply">
+    <div class="container">
+      <div class="cta-eyebrow">Letters to the Future</div>
+      <h2>書いといてよかった、って思う日が来るから。</h2>
+      <div class="btn-group">
+        <a href="#" class="btn btn-gold">今すぐ申し込む</a>
+        <a href="#" class="btn btn-outline">LINEで相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. フッター ============ -->
+  <footer>
+    <div class="footer-brand">EVERGARDEN</div>
+    <div class="footer-en">LETTERS TO THE FUTURE</div>
+    <p class="footer-vision">
+      私たちは、100年届け続ける会社を目指します。
+    </p>
+    <div class="footer-links">
+      <a href="#">会社概要</a>
+      <a href="#">利用規約</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">お問い合わせ</a>
+      <a href="#">LINE公式アカウント</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 EVERGARDEN. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const targets = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.15 });
+    targets.forEach(t=>io.observe(t));
+  </script>
+
+</body>
+</html>
