@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>よくある質問 | EVERGARDEN</title>
+<meta name="description" content="EVERGARDEN(手紙預かりサービス)によくいただくご質問をまとめました。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Dancing+Script:wght@500;600;700&family=Noto+Sans+JP:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --offwhite:#faf8f4;
+    --paper:#fdfcfa;
+    --ink:#2b2b2b;
+    --ink-soft:#5a5a56;
+    --navy:#4a3163;
+    --navy-deep:#2a1b38;
+    --navy-soft:#7d6291;
+    --gold:#b8935a;
+    --gold-light:#d9bd8c;
+    --gold-pale:#f3e9d8;
+    --border:#e7e0e6;
+    --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --display: 'Cormorant Garamond', 'Noto Serif JP', serif;
+    --sans: 'Noto Sans JP', 'Roboto', sans-serif;
+    --ease-hover:.35s ease;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family: var(--serif);
+    color:var(--ink);
+    background:var(--offwhite);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .container{ max-width:820px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- topbar ---------- */
+  .topbar{ padding:28px 0; background:var(--white); }
+  .topbar .container{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{
+    font-family:var(--display);
+    font-size:19px;
+    letter-spacing:0.28em;
+    color:var(--navy-deep);
+  }
+  .back-link{
+    font-family:var(--sans);
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--navy-soft);
+    border-bottom:1px solid var(--navy-soft);
+    padding-bottom:2px;
+  }
+
+  /* ---------- header ---------- */
+  .page-head{ padding:48px 0 56px; text-align:center; background:var(--white); }
+  .eyebrow{
+    display:block;
+    font-family:var(--display);
+    color:var(--navy-soft);
+    letter-spacing:0.3em;
+    font-size:13px;
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:clamp(24px,4.5vw,32px);
+    font-weight:600;
+    letter-spacing:0.08em;
+    color:var(--navy-deep);
+    margin-bottom:16px;
+  }
+  .lead{
+    color:var(--ink-soft);
+    font-size:14px;
+    max-width:480px;
+    margin:0 auto;
+    line-height:2;
+  }
+  .divider{
+    display:flex; align-items:center; justify-content:center; gap:14px; margin:16px auto 0;
+  }
+  .divider::before,.divider::after{ content:""; width:36px; height:1px; background:var(--gold); }
+
+  /* ---------- category ---------- */
+  .category-section{ padding:56px 0; }
+  .category-title{
+    font-family:var(--display);
+    font-size:15px;
+    letter-spacing:0.25em;
+    color:var(--gold);
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom:28px;
+  }
+
+  .faq-list{ max-width:740px; margin:0 auto 8px; }
+  .faq-item{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:6px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:22px 26px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-weight:600;
+    color:var(--navy-deep);
+    font-size:15px;
+    letter-spacing:0.02em;
+    position:relative;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-q{
+    font-family:var(--display);
+    color:var(--gold);
+    font-size:20px;
+    font-weight:600;
+    flex-shrink:0;
+  }
+  .faq-item summary::after{
+    content:"+";
+    margin-left:auto;
+    font-family:var(--display);
+    font-size:22px;
+    color:var(--navy-soft);
+    transition:transform var(--ease-hover);
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-a{
+    padding:0 26px 24px 64px;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    line-height:1.95;
+    letter-spacing:0.02em;
+  }
+
+  @media (max-width:560px){
+    .faq-item summary{ padding:18px 20px; gap:14px; }
+    .faq-a{ padding:0 20px 22px 52px; }
+  }
+
+  /* ---------- footer (LPと共通) ---------- */
+  footer{
+    background:var(--navy-deep);
+    color:rgba(255,255,255,0.8);
+    padding:60px 24px 40px;
+    text-align:center;
+  }
+  .footer-brand{
+    font-family:var(--display);
+    font-size:22px;
+    letter-spacing:0.3em;
+    color:var(--white);
+    margin-bottom:8px;
+  }
+  .footer-en{
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--gold-light);
+    margin-bottom:32px;
+  }
+  .footer-links{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    flex-wrap:wrap;
+    font-size:12.5px;
+    letter-spacing:0.05em;
+    color:rgba(255,255,255,0.6);
+    margin-bottom:30px;
+  }
+  .footer-links a:hover{ color:var(--gold-light); }
+  .footer-copy{ font-size:11px; letter-spacing:0.05em; color:rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">EVERGARDEN</div>
+      <a class="back-link" href="index.html">← LPに戻る</a>
+    </div>
+  </div>
+
+  <div class="page-head">
+    <div class="container">
+      <span class="eyebrow">FAQ</span>
+      <h1>よくある質問</h1>
+      <p class="lead">EVERGARDENについて、よくいただくご質問をまとめました。</p>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- サービスについて -->
+    <div class="category-section">
+      <div class="category-title">サービスについて</div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>EVERGARDENはどんなサービスですか?</summary>
+          <div class="faq-a">親から子への手紙を、最長20年間お預かりし、誕生日や成人式など人生の節目に簡易書留でお届けするサービスです。今日書いた言葉を、その日まで、私たちが責任を持ってお預かりします。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>何年くらい預かってもらえますか?</summary>
+          <div class="faq-a">最長20年間、専用の保管施設で大切にお預かりします。お届け日は、成人式や誕生日など、ご希望の節目に合わせて自由にご指定いただけます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>本当にちゃんと届きますか?</summary>
+          <div class="faq-a">お手紙は簡易書留でお届けし、配達記録を管理しています。万一、宛先不明などでお届けできない場合は、ご登録のLINE・メールにご連絡のうえ、新しいご住所への再送を手配します。天災や郵便制度の変更などやむを得ない事情が生じた場合も、必ずご連絡のうえ最善の方法でお届けする責任を果たします。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>手紙は何通でも預けられますか?</summary>
+          <div class="faq-a">はい。初回登録後、「追加の手紙」としてお申し込みいただければ、何通でもお預かりできます。ごきょうだいへのお手紙や、節目ごとのお手紙の追加などにご利用いただけます。</div>
+        </details>
+      </div>
+    </div>
+
+    <!-- 料金について -->
+    <div class="category-section">
+      <div class="category-title">料金について</div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>料金はいくらですか?</summary>
+          <div class="faq-a">手紙プラン(手紙1通)が3,980円、動画つきプラン(手紙+動画メッセージ)が4,960円、プレミアムプラン(和紙便箋・封蝋・桐箱風保管証明書つき)が8,980円です。追加の手紙は1通1,200円、保管・お届け保証料は年額500円です(すべて税込)。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>保証料とは何ですか?</summary>
+          <div class="faq-a">お手紙の保管環境の維持と、お届け先住所の管理のための年会費です(年額500円)。LINEからいつでも住所変更・保管確認ができます。更新日前にご連絡いただければ、いつでも停止できます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>支払い方法は何がありますか?</summary>
+          <div class="faq-a">クレジットカード決済がご利用いただけます。</div>
+        </details>
+      </div>
+    </div>
+
+    <!-- お届けについて -->
+    <div class="category-section">
+      <div class="category-title">お届けについて</div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>引っ越しをした場合はどうすればいいですか?</summary>
+          <div class="faq-a">LINE公式アカウントから簡単にご住所の変更ができます。預かり番号・お名前・新しいご住所をトークで送っていただくだけで、変更手続きが完了します。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>お届け先のお子様が引っ越していて、住所がわからない場合はどうなりますか?</summary>
+          <div class="faq-a">お届け先が不明な場合は、ご登録のLINE・メールにご連絡し、正しいご住所を確認したうえで再送を手配します。お届け先ご本人の連絡先も合わせてご登録いただくと、よりスムーズにご案内できます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>どのように手紙は届きますか?</summary>
+          <div class="faq-a">指定の日に、簡易書留にて確実にお届けします。配達記録が残るため、追跡・確認が可能です。</div>
+        </details>
+      </div>
+    </div>
+
+    <!-- 動画について -->
+    <div class="category-section">
+      <div class="category-title">動画について</div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>動画メッセージはどうやって届きますか?</summary>
+          <div class="faq-a">お預かりした動画のQRコードをお手紙に同封してお届けします。受け取った方がスマートフォンで読み取ると、その日のメッセージを再生できます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>動画は何年後でも見られますか?</summary>
+          <div class="faq-a">はい。QRコードを通じて安全に保管・再生できる形でお預かりしていますので、何年後でも問題なくご視聴いただけます。</div>
+        </details>
+      </div>
+    </div>
+
+    <!-- キャンセルについて -->
+    <div class="category-section">
+      <div class="category-title">キャンセルについて</div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>キャンセルはできますか?</summary>
+          <div class="faq-a">お手紙をお預かりする前であれば、お申し込みから8日以内はキャンセルを承ります。お手紙をお預かりした後は、サービスの性質上キャンセルをお受けすることができません。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>祖父母から孫への手紙でもいいですか?</summary>
+          <div class="faq-a">もちろんです。親から子へに限らず、祖父母から孫へ、あるいはご家族・大切な方へのお手紙としてご利用いただけます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-q">Q</span>何を書けばいいか思いつきません。</summary>
+          <div class="faq-a">上手に書く必要はありません。今のあなたの言葉が、未来の宝物になります。発送キットに同封している「手紙の書き方ガイド」もぜひ参考にしてください。</div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-brand">EVERGARDEN</div>
+    <div class="footer-en">LETTERS TO THE FUTURE</div>
+    <div class="footer-links">
+      <a href="index.html#apply">会社概要</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+      <a href="faq.html">よくある質問</a>
+      <a href="#">LINEで相談する</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 EVERGARDEN. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
