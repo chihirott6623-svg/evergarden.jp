@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保管証明書の確認 | EVERGARDEN</title>
+<meta name="description" content="お名前と受付番号で、お預かりしているお手紙の保管証明書を確認できます。">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #fdfcfa;
+    --ink: #2a2f3a;
+    --navy: #2c3e5c;
+    --blue-pale: #eef2f7;
+    --gold: #b8965a;
+    --gold-deep: #8a6d3b;
+    --line: #e5e0d6;
+    --muted: #8a8578;
+    --wood: #3b2a1e;
+  }
+
+  body {
+    background: #f1efe9;
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.9;
+    padding: 48px 20px 100px;
+  }
+
+  .container { max-width: 620px; margin: 0 auto; }
+
+  .brand { text-align: center; margin-bottom: 36px; }
+  .brand-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px; font-weight: 600; letter-spacing: 0.35em; color: var(--navy);
+  }
+  .gold-line {
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 16px auto 0;
+  }
+
+  h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 500; letter-spacing: 0.12em; color: var(--navy);
+    text-align: center; margin-bottom: 8px;
+  }
+  .subtitle { text-align: center; font-size: 12.5px; color: var(--muted); margin-bottom: 40px; }
+
+  .lookup-box {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 32px 28px; margin-bottom: 32px;
+  }
+  .form-field { margin-bottom: 18px; }
+  .form-field label { display:block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .form-field input {
+    width: 100%; font-family: 'Noto Sans JP', sans-serif; font-size: 14px;
+    color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+    padding: 12px 14px; background: var(--blue-pale);
+  }
+  .form-field input:focus { outline: none; border-color: var(--gold); }
+
+  .lookup-btn {
+    width: 100%; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; color: #fff; background: var(--navy);
+    border: none; border-radius: 24px; padding: 13px 0; cursor: pointer; margin-top: 8px;
+  }
+  .lookup-btn:hover { background: var(--gold-deep); }
+  .lookup-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .message {
+    text-align: center; font-size: 13px; padding: 16px; border-radius: 8px; margin-bottom: 24px;
+    display: none;
+  }
+  .message.show { display: block; }
+  .message.error { background: #fbeaea; color: #a5423a; }
+  .message.loading { background: var(--blue-pale); color: var(--navy); }
+
+  /* ===== 証明書カード(certificate.htmlと共通デザイン) ===== */
+  .cert {
+    max-width: 620px; margin: 0 auto; background: var(--white);
+    position: relative; padding: 44px 40px; display: none;
+  }
+  .cert.show { display: block; }
+  .cert-standard { border: 1px solid var(--line); box-shadow: 0 2px 24px rgba(44,62,92,0.06); }
+  .cert-standard::before {
+    content: ""; position: absolute; inset: 10px; border: 1px solid var(--gold); opacity: 0.5; pointer-events: none;
+  }
+  .cert-brand { text-align: center; margin-bottom: 28px; }
+  .cert-brand .name { font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.35em; color: var(--navy); }
+  .cert-brand .tagline { font-size: 9px; letter-spacing: 0.35em; color: var(--gold); margin-top: 6px; }
+  .cert-gold-line { width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 14px auto 0; }
+  .cert-title { text-align: center; font-family: 'Shippori Mincho', serif; font-size: 26px; font-weight: 600; letter-spacing: 0.3em; color: var(--navy); margin: 8px 0 4px; }
+  .cert-title-en { text-align: center; font-size: 10px; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 32px; }
+  .cert-number { text-align: center; font-family: 'Consolas', monospace; font-size: 15px; letter-spacing: 0.1em; color: var(--navy); background: var(--blue-pale); border-radius: 6px; padding: 8px 0; margin-bottom: 28px; }
+  .cert-lead { font-size: 13px; color: var(--ink); text-align: center; margin-bottom: 32px; line-height: 2; }
+  .cert-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 32px; }
+  .cert-table tr { border-bottom: 1px dashed var(--line); }
+  .cert-table tr:last-child { border-bottom: none; }
+  .cert-table th, .cert-table td { text-align: left; padding: 11px 4px; font-weight: 400; }
+  .cert-table th { color: var(--muted); font-size: 11.5px; width: 38%; white-space: nowrap; }
+  .cert-table td { color: var(--navy); font-weight: 500; }
+  .cert-quote { text-align: center; font-family: 'Shippori Mincho', serif; font-size: 14px; color: var(--navy); letter-spacing: 0.05em; line-height: 2; margin-bottom: 24px; }
+  .cert-foot { text-align: center; font-size: 10.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 18px; line-height: 1.9; }
+
+  .cert-premium { background: linear-gradient(160deg, #fdfcf9 0%, #f6ece0 100%); border: 1px solid #d8c3a0; box-shadow: 0 8px 32px rgba(59,42,30,0.18); }
+  .cert-premium::before { content: ""; position: absolute; inset: 8px; border: 2px solid var(--gold); pointer-events: none; }
+  .cert-premium::after { content: ""; position: absolute; inset: 13px; border: 1px solid var(--gold); opacity: 0.6; pointer-events: none; }
+  .premium-badge-wrap { text-align: center; margin-bottom: 14px; }
+  .premium-badge { font-size: 10px; letter-spacing: 0.4em; color: #fff; background: linear-gradient(120deg, var(--gold-deep), var(--gold)); display: inline-block; padding: 4px 18px; border-radius: 20px; }
+  .cert-premium .cert-title { color: var(--wood); }
+  .cert-premium .cert-number { background: rgba(184,150,90,0.14); color: var(--wood); }
+  .cert-premium .cert-table td { color: var(--wood); }
+
+  footer { text-align: center; margin-top: 48px; font-size: 10px; letter-spacing: 0.3em; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="brand">
+    <div class="brand-name">EVERGARDEN</div>
+    <div class="gold-line"></div>
+  </div>
+
+  <h1>保管証明書の確認</h1>
+  <p class="subtitle">お名前と受付番号を入力すると、お預かり状況をご確認いただけます</p>
+
+  <div class="lookup-box">
+    <div class="form-field">
+      <label for="v-name">お名前</label>
+      <input type="text" id="v-name" placeholder="山田花子">
+    </div>
+    <div class="form-field">
+      <label for="v-number">受付番号</label>
+      <input type="text" id="v-number" placeholder="EVG0000001">
+    </div>
+    <button type="button" class="lookup-btn" id="lookup-btn">確認する</button>
+  </div>
+
+  <div class="message" id="msg-loading">確認しています…</div>
+  <div class="message error" id="msg-error">お名前・受付番号が一致するお手紙が見つかりませんでした。入力内容をご確認のうえ、もう一度お試しください。ご不明な場合はLINE公式アカウントよりお問い合わせください。</div>
+
+  <div class="cert cert-standard" id="cert-standard">
+    <div class="cert-brand">
+      <div class="name">EVERGARDEN</div>
+      <div class="tagline">LETTERS TO THE FUTURE</div>
+      <div class="cert-gold-line"></div>
+    </div>
+    <div class="cert-title">保管証明書</div>
+    <div class="cert-title-en">CERTIFICATE OF SAFEKEEPING</div>
+    <div class="cert-number">受付番号　<span class="js-number"></span></div>
+    <p class="cert-lead">この度は、大切なお手紙をお預けいただき<br>誠にありがとうございます。<br>以下の内容にて、責任を持ってお預かりしています。</p>
+    <table class="cert-table">
+      <tr><th>ご依頼主様</th><td><span class="js-name"></span>　様</td></tr>
+      <tr><th>プラン</th><td><span class="js-plan"></span></td></tr>
+      <tr><th>お預かり日</th><td><span class="js-received"></span></td></tr>
+      <tr><th>お届けご予定日</th><td><span class="js-delivery"></span></td></tr>
+      <tr><th>保管期間</th><td><span class="js-period"></span></td></tr>
+      <tr><th>保管場所</th><td>EVERGARDEN 専用保管施設</td></tr>
+    </table>
+    <p class="cert-quote">「こんなに愛されてた。」<br>その日まで、大切にお預かりします。</p>
+    <div class="cert-foot">EVERGARDEN — Letters to the Future</div>
+  </div>
+
+  <div class="cert cert-premium" id="cert-premium">
+    <div class="premium-badge-wrap"><span class="premium-badge">PREMIUM</span></div>
+    <div class="cert-brand">
+      <div class="name">EVERGARDEN</div>
+      <div class="tagline">LETTERS TO THE FUTURE</div>
+      <div class="cert-gold-line"></div>
+    </div>
+    <div class="cert-title">保管証明書</div>
+    <div class="cert-title-en">CERTIFICATE OF SAFEKEEPING — PREMIUM</div>
+    <div class="cert-number">受付番号　<span class="js-number"></span></div>
+    <p class="cert-lead">この度は、特別な想いを込めたお手紙を<br>お預けいただき誠にありがとうございます。<br>和紙便箋・封蝋にて認められたお手紙を、<br>桐箱の趣を宿したこの証をもってお預かりしています。</p>
+    <table class="cert-table">
+      <tr><th>ご依頼主様</th><td><span class="js-name"></span>　様</td></tr>
+      <tr><th>プラン</th><td><span class="js-plan"></span></td></tr>
+      <tr><th>お預かり日</th><td><span class="js-received"></span></td></tr>
+      <tr><th>お届けご予定日</th><td><span class="js-delivery"></span></td></tr>
+      <tr><th>保管期間</th><td><span class="js-period"></span></td></tr>
+      <tr><th>仕様</th><td>和紙便箋・封蝋・桐箱風保管証明書</td></tr>
+    </table>
+    <p class="cert-quote">「こんなに愛されてた。」<br>特別な想いを、特別な形で。その日まで。</p>
+    <div class="cert-foot">EVERGARDEN — Letters to the Future</div>
+  </div>
+
+  <footer>EVERGARDEN — 保管証明書の確認 2026.07</footer>
+
+</div>
+
+<script>
+  // Google Apps Script をデプロイしたら、ここに発行されたURLを設定してください
+  var APPS_SCRIPT_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL';
+
+  var btn = document.getElementById('lookup-btn');
+  var msgLoading = document.getElementById('msg-loading');
+  var msgError = document.getElementById('msg-error');
+  var certStandard = document.getElementById('cert-standard');
+  var certPremium = document.getElementById('cert-premium');
+
+  function hideAll() {
+    msgLoading.classList.remove('show');
+    msgError.classList.remove('show');
+    certStandard.classList.remove('show');
+    certPremium.classList.remove('show');
+  }
+
+  function fillCert(el, data) {
+    el.querySelector('.js-number').textContent = data.number;
+    el.querySelector('.js-name').textContent = data.name;
+    el.querySelector('.js-plan').textContent = data.plan;
+    el.querySelector('.js-received').textContent = data.received;
+    el.querySelector('.js-delivery').textContent = data.delivery;
+    el.querySelector('.js-period').textContent = data.period;
+  }
+
+  window.handleLookupResult = function (data) {
+    hideAll();
+    btn.disabled = false;
+    btn.textContent = '確認する';
+
+    if (!data || !data.found) {
+      msgError.classList.add('show');
+      return;
+    }
+
+    var target = (data.plan || '').indexOf('プレミアム') !== -1 ? certPremium : certStandard;
+    fillCert(target, data);
+    target.classList.add('show');
+  };
+
+  btn.addEventListener('click', function () {
+    var name = document.getElementById('v-name').value.trim();
+    var number = document.getElementById('v-number').value.trim();
+
+    if (!name || !number) {
+      hideAll();
+      msgError.classList.add('show');
+      msgError.textContent = 'お名前と受付番号の両方を入力してください。';
+      return;
+    }
+
+    if (APPS_SCRIPT_URL.indexOf('REPLACE_WITH') === 0) {
+      hideAll();
+      msgError.classList.add('show');
+      msgError.textContent = '確認機能の準備中です。しばらくしてからお試しください。';
+      return;
+    }
+
+    hideAll();
+    msgLoading.classList.add('show');
+    btn.disabled = true;
+    btn.textContent = '確認中…';
+
+    var script = document.createElement('script');
+    var url = APPS_SCRIPT_URL
+      + '?name=' + encodeURIComponent(name)
+      + '&number=' + encodeURIComponent(number)
+      + '&callback=handleLookupResult';
+    script.src = url;
+    script.onerror = function () {
+      hideAll();
+      btn.disabled = false;
+      btn.textContent = '確認する';
+      msgError.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+      msgError.classList.add('show');
+    };
+    document.body.appendChild(script);
+    document.body.removeChild(script);
+  });
+</script>
+</body>
+</html>
