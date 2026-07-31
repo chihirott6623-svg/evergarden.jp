@@ -662,6 +662,29 @@
     color:var(--white);
     border-color:var(--navy-deep);
   }
+  .plan-btn{
+    display:block;
+    margin-top:auto;
+    padding:14px 0;
+    font-family:var(--serif);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-align:center;
+    border-radius:4px;
+    background:linear-gradient(135deg, var(--gold-light), var(--gold));
+    color:var(--navy-deep);
+    border:1.5px solid var(--navy-deep);
+    transition:transform var(--ease-hover), box-shadow var(--ease-hover);
+  }
+  .plan-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(184,147,90,0.35);
+  }
+  .plan-card.featured .plan-btn{
+    background:var(--gold);
+    border-color:var(--gold-light);
+  }
   .plan-badge{
     position:absolute;
     top:-13px; left:50%;
@@ -1279,6 +1302,7 @@
             <li>保管証明書の発行</li>
             <li>簡易書留での郵送</li>
           </ul>
+          <a href="https://buy.stripe.com/4gM9AT6UQ9mh1ov1Pw9IQ01" class="plan-btn">このプランで申し込む</a>
         </div>
 
         <div class="plan-card featured reveal">
@@ -1291,6 +1315,7 @@
             <li>手紙プランのすべて</li>
             <li>QRコード動画メッセージ1本</li>
           </ul>
+          <a href="#" class="plan-btn">このプランで申し込む</a>
         </div>
 
         <div class="plan-card reveal">
@@ -1304,6 +1329,7 @@
             <li>封蝋</li>
             <li>桐箱風の特別な保管証明書</li>
           </ul>
+          <a href="#" class="plan-btn">このプランで申し込む</a>
         </div>
       </div>
 
